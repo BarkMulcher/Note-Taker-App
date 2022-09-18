@@ -1,5 +1,6 @@
 // import express module
 const express = require('express');
+const fs = require('fs');
 // built-in path module:
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
@@ -25,9 +26,8 @@ app.get('/*', (req, res) =>
 
 // GET /api/notes to read db.json file
 app.get('/api/notes', (req, res) => {
-    const response = JSON.parse(
-        fs.readFileSync('/db/db.json').toString())
-        res.send( response );
+    const response = JSON.parse(fs.readFileSync('/db/db.json').toString())
+        res.send( response ); 
     });  
 
 // POST /api/notes receive & add to the GUI w/ uuid
