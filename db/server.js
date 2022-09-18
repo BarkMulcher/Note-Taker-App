@@ -80,15 +80,30 @@ app.post('/api/notes', (req, res) => {
     }
 })
 
+// delete functionality:
+app.delete('/api/notes/:id', (req, res) => {
+    let noteId = req.params.id;
+    readFromFile('./db/db.json')
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+        // make new array of all tips except the one with the ID provided in the URL
+        const result = json.filter((note) => note.id !== noteId);
+
+        // save that array to the file system
+        writeToFile('./db/db.json', result);
+
+        // respond to the DELETE request
+        res.json(`Item ${noteId} has been deleted`)
+    })
+})
+
+
 // assign port:
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT}`)
 );
 
-// You haven’t learned how to handle DELETE requests, but this
-//application has that functionality in the front end. As a bonus,
-// see if you can add the DELETE route to the application using
-//the following guideline:
+
 
 // DELETE /api/notes/:id should receive a query parameter containing
 // the id of a note to delete. In order to delete a note, you'll need
