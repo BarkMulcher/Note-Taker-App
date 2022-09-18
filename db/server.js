@@ -30,6 +30,18 @@ app.get('/api/notes', (req, res) => {
         res.send( response ); 
     });  
 
+const readAndAppend = (content, file) => {
+    fs.readFile(file, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            const parsedData = JSON.parse(data);
+            parsedData.push(content);
+            writeToFile(file, parsedData);
+        }
+    })
+}
+
 // POST /api/notes receive & add to the GUI w/ uuid
 app.post('/api/notes', (req, res) => {
     const { title, text } = req.body;
@@ -42,12 +54,10 @@ app.post('/api/notes', (req, res) => {
         }
 
         readAndAppend(newNote, './db/db.json');
-
         const response = {
             status: 'success',
             body: newNote,
-        };
-
+        }
         res.json(response);
     } else {
         res.json('Error in posting note');
