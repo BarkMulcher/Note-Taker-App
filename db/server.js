@@ -34,17 +34,10 @@ app.get('/', (req, res) =>
 // Promise version of fs.readFile:
 const readFromFile = util.promisify(fs.readFile);
 
-const writeToFile = (destination, content) => 
-    fs.writeToFile(destination, JSON.stringify(content, null, 4), (err) =>
-    err ? console.error(err) : console.info(`\nData written to ${destination}`)
+const writeToFile = (destination, content) =>
+    fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
+        err ? console.error(err) : console.info(`\nData written to ${destination}`)
     );
-
-
-// GET /api/notes to read db.json file
-app.get('/api/notes', (req, res) => {
-    const response = JSON.parse(fs.readFileSync('/db/db.json').toString())
-        res.send( response ); 
-    });  
 
 const readAndAppend = (content, file) => {
     fs.readFile(file, 'utf8', (err, data) => {
@@ -56,7 +49,17 @@ const readAndAppend = (content, file) => {
             writeToFile(file, parsedData);
         }
     })
-}
+};
+
+// GET /api/notes to read db.json file
+app.get('/api/notes', (req, res) => {
+    console.info(`${req.method} request received for notes`);
+    readFromFile('./db/db.json')
+    .then((data) => 
+    res.json(JSON.parse(data)));
+});
+
+
 
 // POST /api/notes receive & add to the GUI w/ uuid
 app.post('/api/notes', (req, res) => {
@@ -70,10 +73,7 @@ app.post('/api/notes', (req, res) => {
         }
 
         readAndAppend(newNote, './db/db.json');
-        const response = {
-            status: 'success',
-            body: newNote,
-        }
+
         res.json(response);
     } else {
         res.json('Error in posting note');
@@ -85,13 +85,13 @@ app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT}`)
 );
 
-// You haven’t learned how to handle DELETE requests, but this 
+// You haven’t learned how to handle DELETE requests, but this
 //application has that functionality in the front end. As a bonus,
-// see if you can add the DELETE route to the application using 
+// see if you can add the DELETE route to the application using
 //the following guideline:
 
 // DELETE /api/notes/:id should receive a query parameter containing
-// the id of a note to delete. In order to delete a note, you'll need 
+// the id of a note to delete. In order to delete a note, you'll need
 // to read all notes from the db.json file, remove the note with the
 // given id property, and then rewrite the notes to the db.json file.
 
