@@ -4,6 +4,7 @@ const fs = require('fs');
 // built-in path module:
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const util = require('util');
 
 const PORT = process.env.PORT || 8080;
 
@@ -23,6 +24,15 @@ app.get('/notes', (req, res) =>
 app.get('/*', (req, res) =>
     res.sendFile(path.join(__dirname, '../public/index.html'))
 );
+
+// Promise version of fs.readFile:
+const readFromFile = util.promisify(fs.readFile);
+
+const writeToFile = (destination, content) => 
+    fs.writeToFile(destination, JSON.stringify(content, null, 4), (err) =>
+    err ? console.error(err) : console.info(`\nData written to ${destination}`)
+    );
+
 
 // GET /api/notes to read db.json file
 app.get('/api/notes', (req, res) => {
