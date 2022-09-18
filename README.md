@@ -11,7 +11,7 @@
   * [Inspiration](#inspiration)
   * [Installation](#installation)
   * [Demonstration](#demonstration)
-  * [Contributing]{#contributing}
+  * [Contributing](#contributing)
   * [Tests](#Tests)
   * [Usage](#usage)
   * [Technologies Used](#languages)
