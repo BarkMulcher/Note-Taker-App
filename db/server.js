@@ -15,13 +15,18 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
+
+// wildcard GET route for index.html (homepage):
+app.get('/', (req, res) =>
+    res.sendFile(path.join(__dirname, '../public/index.html'))
+);
+
 // GET route for notes.html:
 app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, '../public/notes.html'))
 );
 
-// wildcard GET route for index.html (homepage):
-app.get('/*', (req, res) =>
+app.get('/*', (req, res) => 
     res.sendFile(path.join(__dirname, '../public/index.html'))
 );
 
