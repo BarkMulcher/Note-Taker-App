@@ -29,7 +29,7 @@
   N/A
 
   ## Demonstration
-  [!](https://github.com/BarkMulcher/README-generator/blob/main/mdgeneratorgif.gif)
+  [!](https://radiant-reef-90837.herokuapp.com)
 
   ## Contributing
   Contact via information found in the "Contact" section of this README.
