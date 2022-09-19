@@ -1,1 +1,1 @@
-web:node db/server.js
+web:nodeserver.js
