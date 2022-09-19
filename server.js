@@ -13,23 +13,15 @@ const app = express();
 // Middleware for parsing JSON and urlencoded form data:
 app.use(express.json());
 
+app.use(express.urlencoded({extended: true }))
 app.use(express.static('public'));
+
 
 // GET route for notes.html:
 app.get('/notes', (req, res) =>
-    res.sendFile(path.join(__dirname, '../public/notes.html'))
+    res.sendFile(path.join(__dirname, './public/notes.html'))
 );
 
-// wildcard GET route for index.html (homepage):
-app.get('/', (req, res) =>
-    res.sendFile(path.join(__dirname, '../public/index.html'))
-);
-
-
-
-// app.get('*', (req, res) => 
-//     res.sendFile(path.join(__dirname, '../public/index.html'))
-// );
 
 // Promise version of fs.readFile:
 const readFromFile = util.promisify(fs.readFile);
@@ -97,6 +89,11 @@ app.delete('/api/notes/:id', (req, res) => {
     })
 })
 
+
+// wildcard GET route for index.html (homepage):
+app.get('*', (req, res) =>
+    res.sendFile(path.join(__dirname, './public/index.html'))
+);
 
 // assign port:
 app.listen(PORT, () =>
