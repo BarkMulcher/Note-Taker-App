@@ -54,7 +54,7 @@ const readAndAppend = (content, file) => {
 // GET /api/notes to read db.json file
 app.get('/api/notes', (req, res) => {
     console.info(`${req.method} request received for notes`);
-    readFromFile('./db.json')
+    readFromFile('./db/db.json')
     .then((data) => 
     res.json(JSON.parse(data)));
 });
@@ -72,7 +72,7 @@ app.post('/api/notes', (req, res) => {
             id: uuidv4(),
         }
 
-        readAndAppend(newNote, './db.json');
+        readAndAppend(newNote, './db/db.json');
 
         res.json(response);
     } else {
@@ -83,7 +83,7 @@ app.post('/api/notes', (req, res) => {
 // delete functionality:
 app.delete('/api/notes/:id', (req, res) => {
     let noteId = req.params.id;
-    readFromFile('./db.json')
+    readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
         // make new array of all tips except the one with the ID provided in the URL
