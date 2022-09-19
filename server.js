@@ -27,7 +27,7 @@ app.get('/notes', (req, res) =>
 const readFromFile = util.promisify(fs.readFile);
 
 const writeToFile = (destination, content) =>
-    fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
+    fs.writeFile(destination, JSON.stringify(content), (err) =>
         err ? console.error(err) : console.info(`\nData written to ${destination}`)
     );
 
@@ -66,7 +66,7 @@ app.post('/api/notes', (req, res) => {
 
         readAndAppend(newNote, './db/db.json');
 
-        res.json(response);
+        res.json(newNote);
     } else {
         res.json('Error in posting note');
     }
@@ -75,14 +75,18 @@ app.post('/api/notes', (req, res) => {
 // delete functionality:
 app.delete('/api/notes/:id', (req, res) => {
     let noteId = req.params.id;
+    console.log(req.params.id)
     readFromFile('./db/db.json')
+
     .then((data) => JSON.parse(data))
     .then((json) => {
+        //
+        console.log("this is json ", json) 
         // make new array of all tips except the one with the ID provided in the URL
         const result = json.filter((note) => note.id !== noteId);
-
+        console.log("This is results ", result)
         // save that array to the file system
-        writeToFile('./db.json', result);
+        writeToFile('./db/db.json', result);
 
         // respond to the DELETE request
         res.json(`Item ${noteId} has been deleted`)
