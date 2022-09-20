@@ -20,10 +20,10 @@
   * [Contact](#contact)
   
   ## Motivation
-  Motivational Motivations
+  I was motivated to create this project in order to learn how to create a notes app, and to improve on design and functionality.
 
   ## Inspiration
-  Problematic Problems
+  
 
   ## Installation
   N/A
@@ -41,10 +41,10 @@
   Navigate to the app page, and add, view, or delete notes!
 
   ## Technologies Used
-  
+  HTML, CSS, BootStrap, JavaScript, Node.JS, Express
 
   ## Credits
-  undefined
+  
 
   ## Contributing
   Contact via information found in the "Contact" section of this README.
@@ -53,6 +53,6 @@
   This project is licensed under GPL v3
 
   ## Contact
-  * Email: undefined
-  * Phone: undefined
+  * Email: N/A
+  * Phone: N/A
   * GitHub: BarkMulcher
