@@ -26,10 +26,10 @@
   
 
   ## Installation
-  N/A
+  This is a web application.
 
   ## Demonstration
-  [!](https://radiant-reef-90837.herokuapp.com)
+  [Note Taker](https://radiant-reef-90837.herokuapp.com)
 
   ## Contributing
   Contact via information found in the "Contact" section of this README.
